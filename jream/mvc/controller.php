@@ -21,6 +21,9 @@ class Controller
 	/** @var array $segments The URI segments */
 	public $segments;
 
+	/** @var string $pathModel Reusable path declared from the bootstrap */
+	public $pathModel;
+	
 	/**
 	* __construct - Required
 	*/
@@ -31,6 +34,18 @@ class Controller
 		$this->model = Registry::get('model');
 	}
 
+	/**
+	 * 
+	 * @param string $model
+	 * @return \jream\MVC\model
+	 */
+	public function loadModel($model)
+	{
+		$model = $model . '_model';
+		require_once($this->pathModel . $model . '.php');
+		return new $model;
+	}
+	
 	/**
 	* location - Shortcut for a page redirect
 	*

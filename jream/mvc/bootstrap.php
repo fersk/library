@@ -215,8 +215,12 @@ class Bootstrap
 			require $this->_pathController . $this->_uriController . '.php';
 			
 			$controller = $this->_uriController;
+			
 			$this->controller = new $controller();
-
+			
+			/** I need the model path inside the controller to run controller->loadModel() */
+			$this->controller->pathModel = $this->_pathModel;
+			
 			/** Check if a method is in the URL */
 			if (isset($this->_uriMethod))
 			{
@@ -278,6 +282,9 @@ class Bootstrap
 		}
 	}
 	
+	/**
+	 * _initView - Sets the registry to contain the view object
+	 */
 	private function _initView()
 	{
 		$view = new View();
