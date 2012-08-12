@@ -6,6 +6,21 @@
  *				Refer to the LICENSE file distributed within the package.
  *
  * @link		http://jream.com
+ *  
+ * @usage
+ * 	$bootstrap = new Bootstrap();
+ *  // For a local copy:
+ * 	$bootstrap->setPathRoot(getcwd());
+ 
+ *  // For a live copy
+ * 	$bootstrap->setPathRoot('/' . getcwd());
+ * 
+ * 	$bootstrap->setPathController('controller/');
+ * 	$bootstrap->setPathModel('model/');
+ *	$bootstrap->setPathView('view/');
+ * 	$bootstrap->setControllerDefault('home');
+ * 	$bootstrap->init();
+ * 
  */
 namespace jream\MVC;
 use jream\Registry;
@@ -142,7 +157,7 @@ class Bootstrap
 	 */
 	public function setPathRoot($path)
 	{
-		$this->_pathRoot = trim($path, '/') . '/';
+		$this->_pathRoot = rtrim($path, '/') . '/';
 	}
 	
 	/**
@@ -207,12 +222,13 @@ class Bootstrap
 	 */
 	private function _initController() 
 	{
+	
 		/** Make sure the actual controller exists */
-		if (file_exists($this->_pathController . $this->_uriController . '.php')) 
+		if (file_exists($this->_pathController . strtolower($this->_uriController) . '.php')) 
 		{
-		
+			
 			/** Include the controller and instantiate it */
-			require $this->_pathController . $this->_uriController . '.php';
+			require $this->_pathController . strtolower($this->_uriController) . '.php';
 			
 			$controller = $this->_uriController;
 			
