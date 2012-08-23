@@ -34,7 +34,8 @@ class Error extends Database
 	*/
 	public function save($code, $title = null, $description = null)
 	{
-		$errorid = $this->db->insert('error', array('code' => $code, 'title' => $title, 'description' => $description);
+		$errorid = $this->db->insert('error', 
+			array('code' => $code, 'title' => $title, 'description' => $description));
 		return $errorid;
 	}
 	
@@ -55,4 +56,4 @@ class Error extends Database
 		");
 	}
 
-}s
+}

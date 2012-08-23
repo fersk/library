@@ -51,7 +51,11 @@ class Rest
 	public function post($url, $variables = array())
 	{
 		curl_setopt($this->_connection, CURLOPT_POST, true);
-		curl_setopt($this->_connection, CURLOPT_POSTFIELDS, $variables);
+		
+		if (!empty($variables)) {
+			curl_setopt($this->_connection, CURLOPT_POSTFIELDS, $variables);
+		}
+		
 		return $this->request();
 	}
 	
