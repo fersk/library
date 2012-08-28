@@ -54,23 +54,25 @@ class Database extends \PDO
 	 *  // Second Way:
 	 *  $db = new jream\Database(null, 'mysql', 'localhost', 'test', 'root', '');
 	 */
-	public function __construct($db, $type = null, $host = null, $name = null, $user = null, $pass = null)
+	public function __construct($db, $type = null, $host = null, $name = null, $user = null, $pass = null, $persistent = false)
 	{
 		try {
 			/** Connect with arguments */
 			if ($db == false || $db == null)
 			{
-				parent::__construct("{$type}:host={$host};dbname={$name}", $user, $pass);
+				parent::__construct("{$type}:host={$host};dbname={$name}", $user, $pass, array(\PDO::ATTR_PERSISTENT => $persistent));
 			}
 			/** Connect with assoc array */
 			else
 			{
-				parent::__construct("{$db['type']}:host={$db['host']};dbname={$db['name']}", $db['user'], $db['pass']);
+                $persistent = isset($db['persistent']) ? $db['persistent'] : false;
+				parent::__construct("{$db['type']}:host={$db['host']};dbname={$db['name']}", $db['user'], $db['pass'], array(\PDO::ATTR_PERSISTENT => $persistent));
 			}
 		} catch (PDOException $e) {
 			die($e->getMessage());
 		}
 	}
+	
 	
 	/**
 	 * setFetchMode - Change the default mode for fetching a query
