@@ -14,7 +14,7 @@ use jream\Autoload,
 new Autoload('../jream');
 
 
-new Form();
+new Input();
 $data = 'love';
 Registry::set('life', $data);
 Session::start();

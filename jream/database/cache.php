@@ -33,7 +33,7 @@
 	}
 	
  */
-namespace jream;
+namespace jream\Database;
 class Cache
 {
 	/**

@@ -96,7 +96,7 @@ class Autoload
 				/** Require the file */
 				else
 				{
-					require $directory . '/' . $f->getFilename();
+					require_once $directory . '/' . $f->getFilename();
 				}
 				
 			}

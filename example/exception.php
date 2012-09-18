@@ -25,7 +25,7 @@ echo PHP_EOL;
 try {
 	throw new jream\Exception(null, array('error_1', 'error_2'));
 } catch (jream\Exception $e) {
-	print_r($e->getArray());
+	print_r($e->fetchArray());
 }
 
 echo PHP_EOL;

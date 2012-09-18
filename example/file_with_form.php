@@ -14,13 +14,13 @@ new jream\Autoload('../jream/');
 echo '<pre>';
 if (isset($_REQUEST['run'])) {
 	try {
-		$form = new jream\Form();
-		$form	->post('title', true)
+		$input = new jream\Form();
+		$input	->post('title', true)
 				->validate('minlength', 2)
 				
 				->file('uploadHere', 'uploaded/', 'custom_name', false, true);
 		
-		$form->submit();
+		$input->submit();
 	
 		echo 'Got beyond the form';
 		
@@ -29,7 +29,7 @@ if (isset($_REQUEST['run'])) {
 	}
 	
 	echo '<b>Debug Form</b>';
-	$form->debug();
+	$input->debug();
 }
 echo '</pre>';
 ?>

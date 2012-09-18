@@ -15,15 +15,16 @@ new jream\Autoload('../jream/');
 if (isset($_REQUEST['run']))
 {
 	try {
-		$form = new jream\Form();
-		$form	->post('name')
+		$input = new jream\Input();
+		$input	->post('name')
+				->get('hello')
 				->post('agree')
 				->format('checkbox')
 				->post('box')
 				->validate('length', array(1,25));
-		$form->submit();
+		$input->submit();
 		
-		$data = $form->get();
+		$data = $input->fetch();
 		print_r($data);
 		
 	} catch (Exception $e) {
@@ -33,7 +34,7 @@ if (isset($_REQUEST['run']))
 
 ?>
 
-<form action="?run" method="post">
+<form action="?run&hello=yes" method="post">
 	<input type="text" name="name" value="Jesse" />
 	<input type="checkbox" name="agree" />
 	<input type="text" name="box" />

@@ -8,7 +8,7 @@
  * @link		http://jream.com
  * @category	Form
  */
-namespace jream\Form;
+namespace jream\Input;
 class Format
 {
 	/**

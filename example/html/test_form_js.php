@@ -14,8 +14,8 @@ new jream\Autoload('../../jream/');
 
 // For some JS money money money...
 try {
-	$form = new jream\Form();
-	$form	->post('name', true)
+	$input = new jream\Form();
+	$input	->post('name', true)
 			->validate('maxlength', 4)
 			->error('This is a custom error message')
 			
@@ -26,10 +26,10 @@ try {
 			->post('gender', true)
 			->validate('eq', 'f');
 	
-	//print_r($form->get());
+	//print_r($input->get());
 	
-	$form->submit();
+	$input->submit();
 } catch (jream\Exception $e) {
-	$z = $e->getArray();
+	$z = $e->fetchArray();
 	jream\Output::error($z);
 }

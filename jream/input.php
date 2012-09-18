@@ -33,9 +33,9 @@ class Input
 	private $_fileField;
 		
 	/** 
-	 * @var array $_formData Holds the POSTED data inside the object for post-processing 
+	 * @var array $_inputData Holds the POSTED data inside the object for post-processing 
 	 */
-	private $_formData = array();
+	private $_inputData = array();
 	
 	/** 
 	 * @var array $_errorData Holds the VALIDATION errors 
@@ -53,6 +53,11 @@ class Input
 	private $_mimicPost = null;
 	
 	/**
+	 * @var string $_mode Sets the mode to POST, GET, or REQUEST
+	 */
+	private $_mode = 'POST';
+	
+	/**
 	 * __construct - Instanatiates the Validate object 
 	 *
 	 * @param mixed $mimicPost (Optional) Pass an associative array matching the form->post() names to mimic a POST
@@ -64,12 +69,15 @@ class Input
 	
 	/**
 	 * post - Retrieves $_POST data and saves it to the object 
+	 *		  This also handles a the GET/REQUEST methods
 	 *
 	 * @param string $name The name of the field to post
 	 * @param string $required (Default = false) When set to true && the value is NULL: Unset the value internally and do validate.
 	 */
 	public function post($name, $required = false)
 	{
+		$this->_mode = 'POST';
+		
 		/** 
 		 * Sanitize the post data (Only allow ASCII up to 127 for now) 
 		 */
@@ -80,11 +88,22 @@ class Input
 			
 			/** Note: Using jream Exception (Within jream namespace) */
 			else
-			throw new \jream\Exception('Passing a mimic value that does not match in your Form posts'); 
+			throw new \jream\Exception('Mimic value not found in your POST/GET/REQUEST'); 
 		}
 		else
 		{
-			$input = isset($_POST[$name]) ? $_POST[$name] : null;
+			switch ($this->_mode) 
+			{
+				case 'POST':
+					echo $input = isset($_POST[$name]) ? $_POST[$name] : null;
+					break;
+				case 'GET':
+					echo $input = isset($_GET[$name]) ? urldecode($_GET[$name]) : null;
+					break;
+				case 'REQUEST':
+					echo $input = isset($_REQUEST[$name]) ? urldecode($_REQUEST[$name]) : null;
+					break;
+			}
 		}
 		
 		/** 
@@ -115,15 +134,27 @@ class Input
 		/**
 		 * Set a new record in this object 
 		 */
-		$this->_formData[$name] = $input;
+		$this->_inputData[$name] = $input;
 		
 		/** 
 		 * Hold on to the immediate record incase validation is called next 
 		 */
 		$this->_currentRecord['key'] = &$name;
-		$this->_currentRecord['value'] = &$this->_formData[$name];
+		$this->_currentRecord['value'] = &$this->_inputData[$name];
 				
 		return $this;
+	}
+	
+	/**
+	 * get - Retrieves $_GET data and saves it to the object 
+	 *
+	 * @param string $name The name of the item to get
+	 * @param string $required (Default = false) When set to true && the value is NULL: Unset the value internally and do validate.
+	 */
+	public function get($name, $required = false)
+	{
+		$this->_mode = 'GET';
+		return $this->post($name, $required);
 	}
 	
 	/**
@@ -131,7 +162,9 @@ class Input
 	*/
 	public function request($name, $required = false)
 	{
-		throw new \jream\Exception('This feature is not built yet.');
+		$this->_mode = 'REQUEST';
+		print_r($this);
+		return $this->post($name, $required);
 	}
 	
 	/**
@@ -144,7 +177,7 @@ class Input
 	public function set($name, $value)
 	{
 		/** I want this to override stuff */
-		$this->_formData[$name] = $value;
+		$this->_inputData[$name] = $value;
 			
 		/** 
 		 * Hold on to the immediate record incase validation is called next 
@@ -165,15 +198,15 @@ class Input
 	{
 		/** Instantiate the format class only if it's used */
 		if ($this->_format == false)
-		$this->_format = new Form\Format();
+		$this->_format = new Input\Format();
 		
 		$key = $this->_currentRecord['key'];
 		
 		if ($param == null) 
-		$this->_formData[$key] = $this->_format->{$type}($this->_currentRecord['value']);
+		$this->_inputData[$key] = $this->_format->{$type}($this->_currentRecord['value']);
 		
 		else
-		$this->_formData[$key] = $this->_format->{$type}($this->_currentRecord['value'], $param);	
+		$this->_inputData[$key] = $this->_format->{$type}($this->_currentRecord['value'], $param);	
 			
 		return $this;
 	}
@@ -195,7 +228,7 @@ class Input
 		
 		/** Instantiate the validate class only if it's used */
 		if ($this->_validate == false) 
-		$this->_validate = new Form\Validate();
+		$this->_validate = new Input\Validate();
 				
 		$key = $this->_currentRecord['key'];
 		$value = $this->_currentRecord['value'];
@@ -231,7 +264,7 @@ class Input
 	{
 		/** Instantiate the file class only if it's used */
 		if ($this->_file == false)
-		$this->_file = new Form\File();
+		$this->_file = new Input\File();
 				
 		/** Store the filename so we can set it in the submit method */
 		$this->_fileField = $name;
@@ -304,13 +337,13 @@ class Input
 	public function submit($preserveTemp = false)
 	{
 		/** Preserve form data before we kill it */
-		if ($preserveTemp && isset($_SESSION['form']['tmp'])) 
+		if ($preserveTemp && isset($_SESSION['input']['tmp'])) 
 		{
 			/** Remove the Previous set */
-			unset($_SESSION['form']['tmp']);
+			unset($_SESSION['input']['tmp']);
 			
 			/** Update the new set */
-			$_SESSION['form']['tmp'] = $this->get();
+			$_SESSION['input']['tmp'] = $this->get();
 		}
 
 		if (count($this->_errorData) == 0)
@@ -319,7 +352,7 @@ class Input
 			{
 				/** If the file is at this point, it had no problems with the requirement standards or any other errors */
 				$filename = $this->_file->uploadSave();
-				$this->_formData[$this->_fileField] = $filename;
+				$this->_inputData[$this->_fileField] = $filename;
 			}
 			
 			return false;
@@ -349,8 +382,8 @@ class Input
 	{
 		if ($key != null)
 		{
-			if (isset($this->_formData[$key]))
-			return $this->_formData[$key];	
+			if (isset($this->_inputData[$key]))
+			return $this->_inputData[$key];	
 
 			else
 			return false;			
@@ -360,7 +393,7 @@ class Input
 		/**
 		* Make sure no empty items get placed
 		*/
-		return array_filter($this->_formData, 'strlen');
+		return array_filter($this->_inputData, 'strlen');
 	}
 	
 	/**
@@ -371,11 +404,11 @@ class Input
 	 *
 	 * @return object
 	 */
-	public function remove($unlimited) // 
+	public function remove($unlimited)
 	{
 		foreach (func_get_args() as $key => $value) {
-			if (isset($this->_formData[$value]))
-			unset($this->_formData[$value]);
+			if (isset($this->_inputData[$value]))
+			unset($this->_inputData[$value]);
 		}		
 		
 		return $this;

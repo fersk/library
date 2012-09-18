@@ -12,7 +12,7 @@
  *   throw new jream\Exception(null, array('error' => 'This is an error'));
  * }
  * catch(Exception $e) {
- *   $e->getArray();
+ *   $e->fetchArray();
  * }
  */
 namespace jream;
@@ -55,11 +55,11 @@ class Exception extends \Exception
     }
 
 	/**
-	 * getArray - Grabs an Exception that threw an array of messages 
+	 * fetchArray - Grabs an Exception that threw an array of messages 
 	 *
 	 * @return array
 	 */
-	public function getArray()
+	public function fetchArray()
 	{
 		if (!empty($this->_array))
 		return $this->_array;
@@ -70,4 +70,5 @@ class Exception extends \Exception
 		else
 		return array('unknown');
 	}
+	
 }

@@ -8,8 +8,8 @@
  * @link		http://jream.com
  *
  */
-namespace jream;
-class Error extends Database
+namespace jream\Database;
+class Error
 {
 
 	/**

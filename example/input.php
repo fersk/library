@@ -26,8 +26,8 @@ $mimic = array(
 );
 	
 try {
-	$form = new jream\Form($mimic);
-	$form	->post('name')
+	$input = new jream\Input($mimic);
+	$input	->post('name')
 			->format('ifeq', array('Jesse', 'life'))
 /*			
 			// ->validate('len', array(1,6))
@@ -41,23 +41,23 @@ try {
 			->post('age')
 			->validate('digit');
 
-	$form->submit();
-	print_r($form->get());
+	$input->submit();
+	print_r($input->fetch());
 } catch (Exception $e) {
 	echo $e->getMessage();
 }
 
 try {
-	$form = new jream\Form($mimic);
-	$form	->post('name')
+	$input = new jream\Input($mimic);
+	$input	->post('name')
 			->validate('matchany', array('JeSSe', 'Joey', 'jenny'), false) // case-insensitive
 			//->validate('matchany', array('JeSSe', 'Joey', 'jenny')) // case-sensitive
 	
 			->post('age')
 			->validate('digit');
 
-	$form->submit();
-	print_r($form->get());
+	$input->submit();
+	print_r($input->fetch());
 } catch (Exception $e) {
 	echo $e->getMessage();
 }
@@ -68,21 +68,21 @@ echo '<hr />';
 * Negative Cases
 */
 try {
-	$form = new jream\Form(array('name' => 'Jesse', 'age' => 25));
-	$form	->post('name')
+	$input = new jream\Input(array('name' => 'Jesse', 'age' => 25));
+	$input	->post('name')
 			->validate('minlength', 5)
 			
 			->post('age')
 			->validate('greaterthan', 24);
 
-	$form->submit();
+	$input->submit();
 } catch (Exception $e) {
 	echo $e->getMessage() . '<br />';
 }
 
 try {
-	$form = new jream\Form(array('name' => 'Jesse', 'age' => 25, 'gender' => 'm'));
-	$form	->post('name')
+	$input = new jream\Input(array('name' => 'Jesse', 'age' => 25, 'gender' => 'm'));
+	$input	->post('name')
 			->validate('maxlength', 4)
 			->error('This is a custom error message')
 			
@@ -92,7 +92,7 @@ try {
 			->post('gender')
 			->validate('eq', 'f');
 			
-	$form->submit();
+	$input->submit();
 } catch (Exception $e) {
 	echo $e->getMessage() . '<br />';
 }
@@ -102,8 +102,8 @@ echo '<hr />';
 
 // For some JS money money money...
 try {
-	$form = new jream\Form(array('name' => 'Jesse', 'age' => 25, 'gender' => 'm'));
-	$form	->post('name')
+	$input = new jream\Input(array('name' => 'Jesse', 'age' => 25, 'gender' => 'm'));
+	$input	->post('name')
 			->validate('maxlength', 4)
 			->error('This is a custom error message')
 			
@@ -113,7 +113,7 @@ try {
 			->post('gender')
 			->validate('eq', 'f');
 			
-	$form->submit();
+	$input->submit();
 } catch (jream\Exception $e) {
-	$z = $e->getArray();
+	$z = $e->fetchArray();
 }
