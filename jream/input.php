@@ -9,7 +9,7 @@
  * @category	Form
  */
 namespace jream;
-class Form
+class Input
 {
 
 	/** 
@@ -340,12 +340,12 @@ class Form
 	}
 	
 	/**
-	 * get - Get a value from the POSTED records stored internally
+	 * fetch - Return a value from the POSTED records stored internally
 	 * 
 	 * @param string $key (Optional) Returns a specific value
 	 * @return mixed Either a string or all items
 	 */
-	public function get($key = null)
+	public function fetch($key = null)
 	{
 		if ($key != null)
 		{

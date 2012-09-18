@@ -43,13 +43,13 @@ class Session
 	}
 
 	/**
-	 * get - Retrieves a session value
+	 * fetch - Retrieves a session value
 	 * 
 	 * @param string $key The name of the session key
 	 * 
-	 * @return mixed THe value or false
+	 * @return mixed The value or false
 	 */
-	public static function get($key)
+	public static function fetch($key)
 	{
 		return (isset($_SESSION[$key])) ? $_SESSION[$key] : false;
 	}

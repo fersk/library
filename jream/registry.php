@@ -22,7 +22,7 @@ class Registry
 	 * @param string $key The name of the item
 	 * @param mixed &$item The item to reference
 	 */
-	public static function set($key, &$item)
+	public static function fetch($key, &$item)
 	{
 		/** This will overwrite key's with the same name */
 		self::$_record[$key] = &$item;

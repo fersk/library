@@ -299,7 +299,7 @@ class Database extends \PDO
 	 * 
 	 * @return string
 	 */
-	public function getQuery()
+	public function showQuery()
 	{
 		return $this->_sql;
 	}
