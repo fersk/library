@@ -10,7 +10,7 @@
 require_once '../jream/autoload.php';
 
 new jream\Autoload('../jream/');
-new jream\Form();
+new jream\Input();
 jream\Hash::create('sha1', 'hey');
 new jream\Output();
 new jream\Registry();

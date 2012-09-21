@@ -34,7 +34,7 @@ class File
 	 * 
 	 * @return boolean
 	 * 
-	 * @throws \jream\Exception 
+	 * @throws \Exception 
 	 */
 	public function uploadPrepare($name, $directory, $saveAs = false, $overwrite = true)
 	{
@@ -53,7 +53,7 @@ class File
 		 * Make sure the pathSave is a directory
 		 */
 		if (!is_dir($this->_directory)) 
-		throw new \jream\Exception("must be a directory: {$this->_directory}");
+		throw new \Exception("must be a directory: {$this->_directory}");
 		
 		/**
 		 * Get the octal permission of the directory, eg: 0777
@@ -62,13 +62,13 @@ class File
 		$writable = substr(sprintf('%o', fileperms($this->_directory)), -4);
 		
 		if ($writable != "0777") 
-		throw new \jream\Exception("directory is not writable: {$this->_directory}");
+		throw new \Exception("directory is not writable: {$this->_directory}");
 		
 		if ($_FILES[$this->_name]['error'] != 0)
-		throw new \jream\Exception($_FILES[$this->_name]['error']);
+		throw new \Exception($_FILES[$this->_name]['error']);
   
 		if ($overwrite == false && file_exists($this->_directory . $this->_saveAs))
-		throw new \jream\Exception("file already exists and cannot be overwritten: {$this->_directory}{$this->_saveAs}");
+		throw new \Exception("file already exists and cannot be overwritten: {$this->_directory}{$this->_saveAs}");
 		
 		/**
 		 * Handle the naming of the file

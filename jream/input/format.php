@@ -6,7 +6,9 @@
  *				Refer to the LICENSE file distributed within the package.
  *
  * @link		http://jream.com
+ * 
  * @category	Form
+ * 
  */
 namespace jream\Input;
 class Format
@@ -24,7 +26,7 @@ class Format
 	public function __call($call, $unlimitedParams)
 	{
 		if (!function_exists($call))
-		throw new \jream\Exception(__CLASS__ . ": Invalid formatting: $call (Invalid Function)");
+		throw new \Exception(__CLASS__ . ": Invalid formatting: $call (Invalid Function)");
 	
 		$args = func_get_args();
 		$param = $args[1];
@@ -79,12 +81,12 @@ class Format
 	 *
 	 * @return string
 	 * 
-	 * @throws \jream\Exception 
+	 * @throws \Exception 
 	 */
 	public function replace($str, $param)
 	{
 		if (count($param) != 2)
-		throw new \jream\Exception(__FUNCTION__ . ': $param must have two values: find, replace')	;
+		throw new \Exception(__FUNCTION__ . ': $param must have two values: find, replace')	;
 		
 		return str_replace($param[0], $param[1], $str);
 	}
@@ -125,12 +127,12 @@ class Format
 	 * 
 	 * @return mixed
 	 *
-	 * @throws \jream\Exception 
+	 * @throws \Exception 
 	 */
 	public function ifgt($str, $param)
 	{
 		if (count($param) != 2)
-		throw new \jream\Exception(__FUNCTION__ . ': $param must have two values: find, replace')	;
+		throw new \Exception(__FUNCTION__ . ': $param must have two values: find, replace')	;
 		
 		if (is_int($str))
 		{
@@ -152,12 +154,12 @@ class Format
 	 * 
 	 * @return mixed
 	 *
-	 * @throws \jream\Exception 
+	 * @throws \Exception 
 	 */
 	public function iflt($str, $param)
 	{
 		if (count($param) != 2)
-		throw new \jream\Exception(__FUNCTION__ . ': $param must have two values: find, replace');
+		throw new \Exception(__FUNCTION__ . ': $param must have two values: find, replace');
 
 		if (is_int($str))
 		{
@@ -179,12 +181,12 @@ class Format
 	 * 
 	 * @return mixed
 	 *
-	 * @throws \jream\Exception 
+	 * @throws \Exception 
 	 */
 	public function ifeq($str, $param)
 	{
 		if (count($param) != 2)
-		throw new \jream\Exception(__FUNCTION__ . ': $param must have two values: find, replace');
+		throw new \Exception(__FUNCTION__ . ': $param must have two values: find, replace');
 
 		if (is_int($str))
 		{
@@ -260,12 +262,12 @@ class Format
 	 * 
 	 * @return string
 	 * 
-	 * @throws \jream\Exception 
+	 * @throws \Exception 
 	 */
 	public function regex($str, $param)
 	{
 		if (count($param) != 2)
-		throw new \jream\Exception(__FUNCTION__ . ': $param must have two values: regex');
+		throw new \Exception(__FUNCTION__ . ': $param must have two values: regex');
 				
 		return preg_replace($param[0], $param[1], $str);
 	}

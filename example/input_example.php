@@ -14,22 +14,25 @@ new jream\Autoload('../jream/');
 
 if (isset($_REQUEST['run']))
 {
+	echo '<pre>';
 	try {
 		$input = new jream\Input();
 		$input	->post('name')
 				->get('hello')
+				->request('hideme')
 				->post('agree')
 				->format('checkbox')
 				->post('box')
 				->validate('length', array(1,25));
+		
 		$input->submit();
 		
-		$data = $input->fetch();
-		print_r($data);
+		print_r($input->fetch());
 		
 	} catch (Exception $e) {
-		echo $e->getMessage();
+		print_r($input->fetchErrors());
 	}
+	echo '</pre>';
 }
 
 ?>
@@ -37,6 +40,7 @@ if (isset($_REQUEST['run']))
 <form action="?run&hello=yes" method="post">
 	<input type="text" name="name" value="Jesse" />
 	<input type="checkbox" name="agree" />
+	<input type="hidden" name="hideme" value="This is a hidden request grabbed!" />
 	<input type="text" name="box" />
 	<input type="submit" />
 </form>

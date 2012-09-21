@@ -29,22 +29,13 @@ try {
 	$input = new jream\Input($mimic);
 	$input	->post('name')
 			->format('ifeq', array('Jesse', 'life'))
-/*			
-			// ->validate('len', array(1,6))
-			// ->validate('minlen', 1)
-			// ->validate('maxlen', 5)
-			// ->validate('match', 'dog')*/
-// /?
-			->validate('matchany', array(1,2,3,4))
-			->validate('greaterthan', 5)
-			->validate('lessthan', 4)
 			->post('age')
 			->validate('digit');
 
 	$input->submit();
-	print_r($input->fetch());
+	echo "Success\n";
 } catch (Exception $e) {
-	echo $e->getMessage();
+	print_r($input->fetchErrors());
 }
 
 try {
@@ -57,9 +48,9 @@ try {
 			->validate('digit');
 
 	$input->submit();
-	print_r($input->fetch());
+	echo "Success\n";
 } catch (Exception $e) {
-	echo $e->getMessage();
+	print_r($input->fetchErrors());
 }
 
 echo '<hr />';
@@ -77,7 +68,7 @@ try {
 
 	$input->submit();
 } catch (Exception $e) {
-	echo $e->getMessage() . '<br />';
+	print_r($input->fetchErrors());
 }
 
 try {
@@ -94,7 +85,7 @@ try {
 			
 	$input->submit();
 } catch (Exception $e) {
-	echo $e->getMessage() . '<br />';
+	print_r($input->fetchErrors());
 }
 
 
@@ -114,6 +105,6 @@ try {
 			->validate('eq', 'f');
 			
 	$input->submit();
-} catch (jream\Exception $e) {
-	$z = $e->fetchArray();
+} catch (Exception $e) {
+	print_r($input->fetchErrors());
 }
