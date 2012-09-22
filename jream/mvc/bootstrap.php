@@ -83,6 +83,11 @@ class Bootstrap
      */
     public $uriSlashPath;
 
+	/**
+	 * @var object $_view The view object 
+	 */
+	private $_view;
+	
     /**
      * __construct - Get the URL and prepare the internal data
      * 
@@ -117,8 +122,6 @@ class Bootstrap
         $this->_buildComponents($urlToBuild);
         
         /** The order of these are important */
-        $this->_initView();
-        $this->_initModel();
         $this->_initController();
     }
     
@@ -236,7 +239,9 @@ class Bootstrap
             
             /** I need the model path inside the controller to run controller->loadModel() */
             $this->controller->pathModel = $this->_pathModel;
-            
+			$this->controller->view = new View();
+			$this->controller->view->setPath($this->_pathView);
+		
             /** Check if a method is in the URL */
             if (isset($this->_uriMethod))
             {
@@ -280,32 +285,5 @@ class Bootstrap
         {
             die(__CLASS__ . ': error (non-existant controller): ' . $this->_uriController);
         }
-    }
-    
-    /** 
-     * _initModel - Autoload the Model if there is one 
-     */
-    private function _initModel()
-    {
-        $actualModel = $this->_pathModel . $this->_uriController . '_model.php';
-        
-        if (file_exists($actualModel))
-        {
-            require $actualModel;
-            $model = (string) $this->_uriController . '_model';
-            $model = (object) new $model();
-            Registry::set('model', $model);
-        }
-    }
-    
-    /**
-     * _initView - Sets the registry to contain the view object
-     */
-    private function _initView()
-    {
-        $view = new View();
-        $view->setPath($this->_pathView);
-        Registry::set('view', $view);
-    }
-    
+    }    
 }

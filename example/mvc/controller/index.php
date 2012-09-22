@@ -25,7 +25,8 @@ class Index extends jream\MVC\Controller
 
 	public function modeltest()
 	{
-		$this->model->test();
+		$model = $this->loadModel('index');
+		$model->test();
 	}
 	
 	public function viewtest()
