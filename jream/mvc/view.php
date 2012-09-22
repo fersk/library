@@ -8,7 +8,8 @@
  * @link        http://jream.com
  * 
  */
-namespace jream\MVC;
+namespace jream\mvc;
+
 class View
 {
 

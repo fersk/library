@@ -22,8 +22,7 @@
  *     $bootstrap->init();
  * 
  */
-namespace jream\MVC;
-use jream\Registry;
+namespace jream\mvc;
 
 class Bootstrap 
 {
@@ -95,10 +94,11 @@ class Bootstrap
      */
     public function __construct()
     {
-        if (isset($_GET['url']))
+        if (isset($_GET))
         {
+			
             /** Prevent the slash from breaking the array below */
-            $uri = rtrim($_GET['url'], '/');
+            $uri = rtrim(implode('', $_GET), '/');
             
             /** Prevent a null-byte from going through */
             $uri = filter_var($uri, FILTER_SANITIZE_URL);

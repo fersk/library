@@ -8,20 +8,13 @@
  * @link        http://jream.com
  * 
  */
-namespace jream\MVC;
-use \jream\Registry;
+namespace jream\mvc;
 class Controller
 {
 
     /** @var object $view Set from the bootstrap */
     public $view;
     
-    /** @var object $model Set from the bootstrap */
-    public $model;
-    
-    /** @var array $segments The URI segments */
-    public $segments;
-
     /** @var string $pathModel Reusable path declared from the bootstrap */
     public $pathModel;
     
@@ -30,9 +23,6 @@ class Controller
     */
     public function __construct() 
     {
-        $this->segments = Registry::get('segments');
-        $this->view = Registry::get('view');
-        $this->model = Registry::get('model');
     }
 
     /**
@@ -57,5 +47,15 @@ class Controller
         header("location: $url");
         exit(0);
     }
+	
+	/**
+	 * __call - Error Catcher
+	 * 
+	 * @param string $name
+	 * @param string $arg
+	 */
+	public function __call($name, $arg) {
+		die("<div>Controller Error: (Method) <b>$name</b> is not defined</div>");
+	}
     
 }

@@ -1,0 +1,7 @@
+RewriteEngine On
+# Place your path here
+RewriteBase /workspace/library/example/mvc/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.+)$ /library/example/mvc/index.php?$1 [QSA,L]

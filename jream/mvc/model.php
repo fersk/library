@@ -8,20 +8,24 @@
  * @link        http://jream.com
  * 
  */
-namespace jream\MVC;
-use \jream\Registry;
+namespace jream\mvc;
 class Model
 {
-
-    /** @var object $db The jream Database object */
-    public $db;
 
     /**
     * __construct - Include database object if defined
     */
     public function __construct()
     {
-        $this->db = Registry::get('db');
     }
     
+	/**
+	 * __call - Error Catcher
+	 * 
+	 * @param string $name
+	 * @param string $arg
+	 */
+	public function __call($name, $arg) {
+		die("<div>Model Error: (Method) <b>$name</b> is not defined</div>");
+	}
 }

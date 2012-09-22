@@ -8,7 +8,7 @@
  * @link        http://jream.com
  * 
  */
-namespace jream\MVC;
+namespace jream\mvc;
 
 /**
  * Class for rerouting uri's.

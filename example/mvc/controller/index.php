@@ -23,7 +23,7 @@ class Index extends jream\MVC\Controller
 		echo __CLASS__ . "->" . __FUNCTION__ . " - " . $arg2 . "\n";
 	}
 
-	public function modeltest()
+	public function test()
 	{
 		$model = $this->loadModel('index');
 		$model->test();
