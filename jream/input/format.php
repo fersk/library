@@ -7,7 +7,7 @@
  *
  * @link		http://jream.com
  * 
- * @category	Form
+ * @category	Input
  * 
  */
 namespace jream\Input;

@@ -33,16 +33,6 @@ class Input
      * @var object $_validate The validation object. Only instantiated if the method is called.
      */
     private $_validate = false;
-    
-    /** 
-     * @var object $_file The file object. Only instantiated if the method is called.
-     */
-    private $_file = false;
-    
-    /**
-     * @var string $_fileField If a file is uploaded this is stored as a reference to create a record inside formName inside the submit() method
-     */
-    private $_fileField;
         
     /** 
      * @var array $_inputData Holds the POSTED data inside the object for post-processing 
@@ -318,6 +308,8 @@ class Input
         {
             throw new \Exception("There are errors in the form. Please wrap the form in a try/catch and call \$form->fetchErrors() in the catch.\n");
         }
+        
+        if (
     }
     
     /**
