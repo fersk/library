@@ -308,8 +308,6 @@ class Input
         {
             throw new \Exception("There are errors in the form. Please wrap the form in a try/catch and call \$form->fetchErrors() in the catch.\n");
         }
-        
-        if (
     }
     
     /**
