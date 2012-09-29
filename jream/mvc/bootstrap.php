@@ -50,17 +50,17 @@ class Bootstrap
     /**
      * @var string $_pathModel Where the models are located
      */
-    private $_pathModel = 'model';
+    private $_pathModel;
     
     /**
      * @var string $_pathView Where the views are located
      */
-    private $_pathView = 'view';
+    private $_pathView;
     
     /**
      * @var string $_pathController Where the controllers are located
      */
-    private $_pathController = 'controller';
+    private $_pathController;
     
     /**
      * @var object $_basePath The basepath to include files from
@@ -161,10 +161,17 @@ class Bootstrap
     public function setPathRoot($path)
     {
         $this->_pathRoot = rtrim($path, '/') . '/';
+        
+        /**
+         * Set the default paths afterwards
+         */
+        $this->_pathController = $this->_pathRoot . 'controller/';
+        $this->_pathModel = $this->_pathRoot . 'model/';
+        $this->_pathView = $this->_pathRoot . 'view/';
     }
     
     /**
-     * setPathController - Default is 'controller'
+     * setPathController - Default is 'controller/'
      *
      * @param string $path Location for the controllers
      */
@@ -174,7 +181,7 @@ class Bootstrap
     }
     
     /**
-     * setPathModel - Default is 'model'
+     * setPathModel - Default is 'model/'
      *
      * @param string $path Location for the models
      */
@@ -184,7 +191,7 @@ class Bootstrap
     }
     
     /**
-     * setPathView - Default is 'view'
+     * setPathView - Default is 'view/'
      *
      * @param string $path Location for the models
      */
