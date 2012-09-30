@@ -73,12 +73,12 @@ class Input
      * post - Retrieves $_POST data and saves it to the object 
      *
      * @param string $name The name of the field to post
-     * @param string $required (Default = false) When set to true && the value is NULL: Unset the value internally and do validate.
+     * @param string $required_or_checkbox (Default = false) true/false/checkbox When set to true && the value is NULL: Unset the value internally and do validate.
      */
-    public function post($name, $required = false)
+    public function post($name, $required_or_checkbox = false)
     {
         $this->_mode = 'POST';
-        return $this->_handle_input($name, $required);
+        return $this->_handle_input($name, $required_or_checkbox);
     }
     
     /**
@@ -130,7 +130,14 @@ class Input
             switch ($this->_mode) 
             {
                 case 'POST':
-                    $input = isset($_POST[$name]) ? $_POST[$name] : null;
+					/**
+					 * Make sure checkboxes are always passed, and set them as strings
+					 */
+					if ($required == 'checkbox') {
+						$input = isset($_POST[$name]) && $_POST[$name] == 'on' ? (string) 1 : (string) 0;
+					} else {
+						$input = isset($_POST[$name]) ? $_POST[$name] : null;
+					}
                     break;
                 case 'GET':
                     $input = isset($_GET[$name]) ? urldecode($_GET[$name]) : null;

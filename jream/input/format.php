@@ -201,20 +201,6 @@ class Format
 	}
 	
 	/**
-	 * checkbox - Formats a checkbox to a 1 or 0 if its ticked
-	 *
-	 * @param string $str 
-	 */
-	public function checkbox($str)
-	{
-		if ($str == 'on')
-		return 1;
-		
-		else
-		return 0;
-	}
-	
-	/**
 	 * toint - Cast to an integer
 	 * 
 	 * @param string $str

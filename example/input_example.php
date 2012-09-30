@@ -20,8 +20,7 @@ if (isset($_REQUEST['run']))
 		$input	->post('name')
 				->get('hello')
 				->request('hideme')
-				->post('agree')
-				->format('checkbox')
+				->post('agree', 'checkbox')
 				->post('box')
 				->validate('length', array(1,25));
 		
