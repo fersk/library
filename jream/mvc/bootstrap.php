@@ -94,11 +94,10 @@ class Bootstrap
      */
     public function __construct()
     {
-        if (isset($_GET))
+        if (isset($_GET['uri']))
         {
-			
             /** Prevent the slash from breaking the array below */
-            $uri = rtrim(implode('', $_GET), '/');
+            $uri = rtrim($_GET['uri'], '/');
             
             /** Prevent a null-byte from going through */
             $uri = filter_var($uri, FILTER_SANITIZE_URL);
