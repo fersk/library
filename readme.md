@@ -32,7 +32,7 @@ It's easiest to just define a `use` case at the top of your file if you are not 
     RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.+)$ index.php?$1 [QSA,L]
+    RewriteRule ^(.+)$ index.php?uri=$1 [QSA,L]
 
 ***
 ## 
