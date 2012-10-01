@@ -133,7 +133,7 @@ class Input
 					/**
 					 * Make sure checkboxes are always passed, and set them as strings
 					 */
-					if ($required == 'checkbox') {
+					if ($required === 'checkbox') {
 						$input = isset($_POST[$name]) && $_POST[$name] == 'on' ? (string) 1 : (string) 0;
 					} else {
 						$input = isset($_POST[$name]) ? $_POST[$name] : null;
