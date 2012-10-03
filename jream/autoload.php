@@ -86,6 +86,7 @@ class Autoload
         /** Loop through the files */
         foreach ($iterator as $f)
         {
+           
             /** Require the Files */
             if ($f->isFile())
             {                
@@ -97,7 +98,12 @@ class Autoload
                 /** Require the file */
                 else
                 {
+                    $data = pathinfo($directory . '/' . $f->getFilename());
+                    
+                    /** Make sure the extension is php only */
+                    if ($data['extension'] == 'php') {
                     require_once $directory . '/' . $f->getFilename();
+                    }
                 }
                 
             }
