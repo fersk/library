@@ -282,9 +282,3 @@ class Format
     }
 	
 }
-
-?>
-
-
-</body>
-</html>
