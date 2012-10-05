@@ -60,6 +60,11 @@ class Input
     private $_mode = 'POST';
     
     /**
+     * @var boolean $_storeSession Stores items in an empty session
+     */
+    private $_storeSession = true;
+    
+    /**
      * __construct - Instanatiates the Validate object 
      *
      * @param mixed $mimicPost (Optional) Pass an associative array matching the form->post() names to mimic a POST
@@ -67,6 +72,17 @@ class Input
     public function __construct($mimicPost = null)
     {        
         $this->_mimicPost = $mimicPost;
+        $this->storeSession(true);
+    }
+    
+    /**
+     * useTempSession - Store data in a $_SESSION variable titled $_SESSION[tmp][data]
+     * 
+     * @param boolean $boolean
+     */
+    public function storeSession($boolean = true)
+    {
+        $this->_storeSession = (boolean) $boolean;
     }
     
     /**
@@ -134,6 +150,7 @@ class Input
 					 * Make sure checkboxes are always passed, and set them as strings
 					 */
 					if ($required === 'checkbox') {
+                        
 						$input = isset($_POST[$name]) && ($_POST[$name] == 'on' || $_POST[$name] == 'true') ? (string) 1 : (string) 0;
 					} else {
 						$input = isset($_POST[$name]) ? $_POST[$name] : null;
@@ -311,6 +328,10 @@ class Input
      */
     public function submit()
     {
+        if (session_id() != '' && $this->_storeSession == true) {
+            $_SESSION['tmp']['input'] = $this->_inputData;
+        }
+                
         if (count($this->_errorData) > 0)
         {
             throw new \Exception("There are errors in the form. Please wrap the form in a try/catch and call \$form->fetchErrors() in the catch.\n");
