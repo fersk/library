@@ -1,3 +1,14 @@
+<!doctype html>
+<html>
+<head>
+    <title>JREAM Library Example</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="wrap">
+<header><h1>jream\Output</h1></header>
+<div id="content">
 <?php
 /**
  * @author		Jesse Boyer <contact@jream.com>
@@ -11,6 +22,19 @@ require_once '../jream/autoload.php';
 
 new jream\Autoload('../jream/');
 
-jream\Output::error('hello');
+
+//jream\Output::error('hello');
 //jream\Output::success('hello');
 //jream\Output::json('hello');
+
+?>
+
+</div>
+<!-- end:Wrap -->
+
+<footer>
+	(C) 2011 - 2012 Jesse Boyer &lt;http://jream.com&gt;
+</footer>
+
+</body>
+</html>

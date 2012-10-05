@@ -1,3 +1,14 @@
+<!doctype html>
+<html>
+<head>
+    <title>JREAM Library Example</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="wrap">
+<header><h1>jream\Database</h1></header>
+<div id="content">
 <?php
 /**
  * @author		Jesse Boyer <contact@jream.com>
@@ -50,3 +61,16 @@ print_r($result);
 
 $cols = $db->showColumns('user');
 print_r($cols);
+
+?>
+
+
+</div>
+<!-- end:Wrap -->
+
+<footer>
+	(C) 2011 - 2012 Jesse Boyer &lt;http://jream.com&gt;
+</footer>
+
+</body>
+</html>

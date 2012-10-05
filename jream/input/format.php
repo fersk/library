@@ -257,5 +257,34 @@ class Format
 				
 		return preg_replace($param[0], $param[1], $str);
 	}
+    
+    /**
+    * hash - Use a custom hash algorithm
+    *
+    * @param string $str
+    * @param array $param One or two arguements. 1: Encryption Method, 2: Hash Key (Optional)
+    */
+    public function hash($str, $param)
+    {
+        if (!is_array($param) || count($param) > 2 || empty($param)) {
+            throw new \Exception(__FUNCTION__ . ': $param must have one or two values (Encryption, Key (Optional))');
+        }
+        
+        if (count($param) == 1) 
+        $ctx = hash_init($param[0]);
+        
+        else
+        $ctx = hash_init($param[0], HASH_HMAC, $param[1]);
+
+        /** Finalize the output */
+        hash_update($ctx, $str);
+        return hash_final($ctx);
+    }
 	
 }
+
+?>
+
+
+</body>
+</html>

@@ -1,3 +1,12 @@
+<!doctype html>
+<html>
+<head>
+    <title>JREAM Library Example</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<h1>Input Example</h1>
 <?php
 /**
  * @author		Jesse Boyer <contact@jream.com>
@@ -43,3 +52,13 @@ if (isset($_REQUEST['run']))
 	<input type="text" name="box" />
 	<input type="submit" />
 </form>
+
+</div>
+<!-- end:Wrap -->
+
+<footer>
+	(C) 2011 - 2012 Jesse Boyer &lt;http://jream.com&gt;
+</footer>
+
+</body>
+</html>

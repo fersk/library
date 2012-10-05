@@ -1,3 +1,14 @@
+<!doctype html>
+<html>
+<head>
+    <title>JREAM Library Example</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="wrap">
+<header><h1>jream\Timer</h1></header>
+<div id="content">
 <?php
 /**
  * @author		Jesse Boyer <contact@jream.com>
@@ -23,3 +34,15 @@ for ($i = 0; $i < 100000; $i++)
 	new stdClass();
 }
 echo jream\Timer::stop('iteration');
+?>
+
+</div>
+<!-- end:Wrap -->
+
+
+<footer>
+	(C) 2011 - 2012 Jesse Boyer &lt;http://jream.com&gt;
+</footer>
+
+</body>
+</html>

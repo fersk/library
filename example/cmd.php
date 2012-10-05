@@ -1,3 +1,15 @@
+<!doctype html>
+<html>
+<head>
+    <title>JREAM Library Example</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="wrap">
+<header><h1>jream\cmd</h1></header>
+<div id="content">
+
 <?php
 /**
  * @author		Jesse Boyer <contact@jream.com>
@@ -19,3 +31,15 @@ new jream\Autoload('../jream/');
 jream\cmd::interval(function() {
 	echo "Interval ";
 });
+
+?>
+
+</div>
+<!-- end:Wrap -->
+
+<footer>
+	(C) 2011 - 2012 Jesse Boyer &lt;http://jream.com&gt;
+</footer>
+
+</body>
+</html>
