@@ -25,7 +25,7 @@ To rewrite URL's enable `mod_rewrite` if you are using Apache. If you are workin
 	RewriteBase /
 	RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.+)$ index.php?$1 [QSA,L]
+    RewriteRule ^(.+)$ index.php?uri=$1 [QSA,L]
 
 
 
