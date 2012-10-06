@@ -1,7 +1,7 @@
 #### JREAM Library
 * * *
 
-# jream/autoload
+# jream/Autoload
 Loads objects only when they are called and needed.
 
 ### Using it
