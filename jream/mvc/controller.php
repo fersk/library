@@ -48,14 +48,14 @@ class Controller
         exit(0);
     }
 	
-	/**
-	 * __call - Error Catcher
-	 * 
-	 * @param string $name
-	 * @param string $arg
-	 */
-	public function __call($name, $arg) {
-		die("<div>Controller Error: (Method) <b>$name</b> is not defined</div>");
-	}
+    /**
+     * __call - Error Catcher
+     * 
+     * @param string $name
+     * @param string $arg
+     */
+    public function __call($name, $arg) {
+            die("<div>Controller Error: (Method) <b>$name</b> is not defined</div>");
+    }
     
 }

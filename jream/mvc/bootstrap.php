@@ -82,11 +82,11 @@ class Bootstrap
      */
     public $uriSlashPath;
 
-	/**
-	 * @var object $_view The view object 
-	 */
-	private $_view;
-	
+    /**
+     * @var object $_view The view object 
+     */
+    private $_view;
+
     /**
      * __construct - Get the URL and prepare the internal data
      * 
@@ -231,11 +231,12 @@ class Bootstrap
      */
     private function _initController() 
     {
-    
+        /** The user must create this class */
+        $this->_requireCustomModel();
+        
         /** Make sure the actual controller exists */
         if (file_exists($this->_pathController . strtolower($this->_uriController) . '.php')) 
         {
-            
             /** Include the controller and instantiate it */
             require $this->_pathController . strtolower($this->_uriController) . '.php';
             
@@ -245,8 +246,8 @@ class Bootstrap
             
             /** I need the model path inside the controller to run controller->loadModel() */
             $this->controller->pathModel = $this->_pathModel;
-			$this->controller->view = new View();
-			$this->controller->view->setPath($this->_pathView);
+            $this->controller->view = new View();
+            $this->controller->view->setPath($this->_pathView);
 		
             /** Check if a method is in the URL */
             if (isset($this->_uriMethod))
@@ -291,5 +292,22 @@ class Bootstrap
         {
             die(__CLASS__ . ': error (non-existant controller): ' . $this->_uriController);
         }
-    }    
+    }  
+    
+    private function _requireCustomModel()
+    {
+        if (!file_exists($this->_pathModel . 'model.php'))
+        {
+            die(__CLASS__ . ": error (missing model)\n
+                You must create your base model here: {$this->_pathModel}model.php\n
+                <pre>
+                &lt;?php\n
+                class Model {}
+                </pre>
+            ");
+        }
+
+        require $this->_pathModel . 'model.php';
+    }
+    
 }
