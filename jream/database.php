@@ -109,9 +109,12 @@ class Database extends \PDO
         
         /** Run Query and Bind the Values */
         $sth = $this->prepare($this->_sql);
-        foreach($bindParams as $key => $value)
-        {
-            $sth->bindValue(":$key", $value);
+        foreach ($bindParams as $key => $value) {
+            if (is_int($value)) {
+                $sth->bindValue(":$key", $value, PDO::PARAM_INT);
+            } else {
+                $sth->bindValue(":$key", $value);
+            }
         }
     
         $result = $sth->execute();
